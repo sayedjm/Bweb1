@@ -1,0 +1,32 @@
+<table class="table" id="corona-table" style="margin: 10px auto; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);">
+    <thead>
+    <tr>
+        <th onclick="sortTable(0)">Country</th>
+        <th onclick="sortTable(1)">CountryCode</th>
+        <th onclick="sortTable(2)">Total deaths</th>
+        <th onclick="sortTable(3)">Total confirmed</th>
+        <th onclick="sortTable(4)">Select Countries</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for data in covid_data %}
+        <tr>
+            <td>{{ data.Country }}</td>
+            <td>{{ data.ISO3166_CountryCode }}</td>
+            <td>{{ data.max_deaths }}</td>
+            <td>{{ data.max_confirmed }}</td>
+            <td style="text-align: center;">
+                <div class="d-flex justify-content-center">
+                    <div class="form-check">
+                        <input class="form-check-input"
+                               type="checkbox"
+                               name="selected_countries"
+                               value="{{ data.Country }}"
+                               id="flexCheck{{ forloop.counter }}">
+                    </div>
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

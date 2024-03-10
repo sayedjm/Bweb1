@@ -1,0 +1,27 @@
+<div class="dropdown">
+    <button type="button" class="btn btn-sm" data-bs-toggle="dropdown"
+            aria-expanded="false" data-bs-auto-close="outside">
+        Export data
+    </button>
+    <div class="dropdown-menu p-4">
+        <div style="float: right;">
+            <form method="post">
+                {% csrf_token %}
+                <label for="file_export_type" class="form-label">File exporteren</label>
+                <div class="input-group">
+                    <select class="form-select" id="file_export_type" name="file_export_type">
+                        <option value="json">.json</option>
+                        <option value="tab">.tab</option>
+                        <option value="csv">.csv</option>
+                    </select>
+                    <input type="hidden" name="count_country" id="count_country" value="{{ count_country }}">
+                    {% for country in selected_country %}
+                        <input type="hidden" name="export_country" id="export_country" value="{{ country }}">
+                    {% endfor %}
+                    <button class="btn btn-secondary" type="submit" name="file_export" value="file_export">Export
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

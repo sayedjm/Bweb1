@@ -1,0 +1,40 @@
+<table class="table table-hover" id="articles-container">
+    <thead >
+    <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Date of Publication</th>
+        <th>PubMed Link</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for key, value in pubmed_data.items %}
+        <tr>
+            <td>{{ key }}</td>
+            <td>{{ value.author }}</td>
+            <td>{{ value.date_of_publication }}</td>
+            <td>
+                <button type="button" class="btn btn-secondary btn-sm"
+                        onclick="toggleAbstract('{{ key }}')">Show
+                    Abstract
+                </button>
+            </td>
+            <td>
+                <button type="button" class="btn btn-secondary btn-sm">
+                    <a href="{{ value.link }}" target="_blank"
+                       style="color: white; text-decoration: none;">View
+                        on PubMed</a>
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5">
+                <div id="abstract_{{ key }}" style="display: none;">
+                    <strong>Abstract:</strong> {{ value.abstract }}
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

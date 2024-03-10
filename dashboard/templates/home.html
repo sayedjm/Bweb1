@@ -1,0 +1,109 @@
+{% extends 'sharedTemplates/base.html' %}
+{% block title %}Home{% endblock %}
+{% load static %}
+{% block body %}
+
+    {% if messages %}
+        {% include 'messages_boxen/export_alert.html' %}
+    {% endif %}
+    <br>
+
+    <div class="container-md text-center">
+        <div class="card custom-column">
+            <h2 class="card-title">Corona Tracker</h2>
+            <div class="card-body">
+                Welcome to the Corona Tracker, your source for global COVID-19 statistics.
+                Under the "Worldmap" tab, you have the ability to select specific countries that interest you.
+                By clicking on the table, you can easily filter and search for specific countries.
+                The 'Random County' tab offers the option to explore random county data.
+                Under the "Select country" tab, you can select from the list a county and directly access its dashboard.
+                In addition, you can access the most recent PubMed articles on SARS-CoV-2.
+            </div>
+        </div>
+
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="row row-cols-2 row-cols-lg-4 g-4">
+                <div class="col">
+                    <div class="card custom-column">
+                        <img class="card-img-top custom-img"
+                             src="{% static 'png/world.png' %}" alt="World">
+                        <div class="card-body">
+                            <h5 class="card-title">World map</h5>
+                            <p class="card-text">Some quick example text to
+                                build
+                                on the card title and make up the bulk of the
+                                card's content.</p>
+                            <button type="submit" class="btn btn-primary"
+                                    name="world-map" value="world-map">World
+                                map
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+
+                    <div class="card custom-column">
+                        <img class="card-img-top custom-img"
+                             src="{% static 'png/country.png' %}"
+                             alt="Country">
+                        <div class="card-body">
+                            <h5 class="card-title">Random county</h5>
+                            <p class="card-text">Some quick example text to
+                                build
+                                on the card title and make up the bulk of the
+                                card's content.</p>
+                            <button type="submit" class="btn btn-primary"
+                                    name="random_country"
+                                    value="random_country">Random country
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+
+                    <div class="card custom-column">
+                        <img class="card-img-top custom-img"
+                             src="{% static 'png/empty_world.png' %}"
+                             alt="Empty world">
+                        <div class="card-body">
+                            <h5 class="card-title">Select country</h5>
+                            <p class="card-text">Some quick example text to
+                                build
+                                on the card title and make up the bulk of the
+                                card's content.</p>
+                            <select class="form-select" name="country" id="country" onchange="this.form.submit()">
+                                {% for country in countries %}
+                                    <option value="{{ country }}">{{ country }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+
+                    <div class="card custom-column">
+                        <img class="card-img-top custom-img"
+                             src="{% static 'png/pubmed-removebg-preview.png' %}"
+                             alt="PumMed">
+                        <div class="card-body">
+                            <h5 class="card-title">Get latest articles</h5>
+                            <p class="card-text">Some quick example text to
+                                build
+                                on the card title and make up the bulk of the
+                                card's content.</p>
+                            <button type="submit" class="btn btn-primary"
+                                    name="articles" value="articles">Articles
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <link href="{% static 'style/style.css' %}" rel="stylesheet">
+
+{% endblock %}
