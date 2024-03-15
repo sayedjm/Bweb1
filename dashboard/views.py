@@ -32,6 +32,9 @@ def home(request):
             selected_country = request.POST.get('country')
             context = get_plots(selected_country)
             return render(request, "country_plots.html", context)
+        elif request.POST.get("file_export"):
+            export_data(request)
+            return HttpResponseRedirect('/')
 
     countries = sorted(list(CovidData.objects.values_list('Country', flat=True).distinct()))
     return render(request, "home.html", context={'countries': countries})
@@ -39,11 +42,8 @@ def home(request):
 
 def get_country_plots(request):
     countries = sorted(list(CovidData.objects.values_list('Country', flat=True).distinct()))
-
     if request.method == 'POST':
-        if request.POST.get("back"):
-            return HttpResponseRedirect('/')
-        elif request.POST.get("file_export"):
+        if request.POST.get("file_export"):
             export_data(request)
             return HttpResponseRedirect('/')
     else:
@@ -80,8 +80,9 @@ def get_plots(selected_country):
                'plot_province_state': plot_province_state,
                'data_county': data_county,
                'selected_country': selected_country,
+               'count_country': 1,
                'heatmap_confirmed': heatmap_confirmed,
-               'heatmap_deaths': heatmap_deaths
+               'heatmap_deaths': heatmap_deaths,
                }
 
     return context

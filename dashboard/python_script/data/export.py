@@ -7,8 +7,8 @@ from dashboard.models import CovidData
 
 def export(request):
     data_type = request.POST.get('file_export_type')
-    count_country = request.POST.get('count_country')
-
+    count_country = request.POST.getlist('count_country')[0]
+    print(count_country)
     if count_country == '1':
         selected_country = "".join(request.POST.getlist('export_country'))
         covid_data_objects = CovidData.objects.filter(Country=selected_country)
