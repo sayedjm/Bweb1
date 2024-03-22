@@ -1,0 +1,54 @@
+{% extends 'sharedTemplates/base.html' %}
+{% block title %}Worldwide view{% endblock %}
+{% load static %}
+{% block body %}
+
+    <div class="container">
+        <div class="d-flex flex-wrap justify-content-center">
+        <div class="form-check p-3">
+            <input class="form-check-input" type="radio" name="chartType"
+                   id="worldMapRadio" checked onchange="toggleCharts()">
+            <label class="form-check-label" for="worldMapRadio">World Map</label>
+        </div>
+        <div class="form-check p-3">
+            <input class="form-check-input" type="radio" name="chartType"
+                   id="lineMapRadio" onchange="toggleCharts()">
+            <label class="form-check-label" for="lineMapRadio">Lines Map</label>
+        </div>
+    </div>
+        <div id="geo-plot-container"
+             class="chart-container">{{ plot_geo | safe }}</div>
+        <div id="line-plot-container"
+             class="chart-container chart-hidden">{{ plot_line_all | safe }}</div>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="d-flex justify-content-between">
+                <div>
+                    <div class="input-group">
+                <span class="input-group-text" id="basic-addon1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                         height="16" fill="currentColor" class="bi bi-search"
+                         viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg></span>
+                        <input class="form-control" type="search"
+                               id="search-box" name="search"
+                               placeholder="Country" onkeyup="searchTable()"
+                               autofocus>
+                    </div>
+                </div>
+                <button type="submit" name="back" value="select"
+                        class="btn btn-primary">Confirm selection
+                </button>
+            </div>
+            {% include 'tables/world_table.html' %}
+        </form>
+    </div>
+
+    <script src="{% static 'scrips/javascript/search.js' %}"></script>
+    <script src="{% static 'scrips/javascript/sort.js' %}"></script>
+    <script src="{% static 'scrips/javascript/hideShow.js' %}"></script>
+    <link rel="stylesheet" href="{% static '/style/style_website.css' %}">
+
+{% endblock %}
+

@@ -1,0 +1,38 @@
+{% load static %}
+
+<table class="table table_style table-hover" id="corona-table">
+    <thead>
+    <tr>
+        <th onclick="sortTable(0)">Country</th>
+        <th onclick="sortTable(1)" class="hide-on-small">CountryCode</th>
+        <th onclick="sortTable(2)" class="hide-on-small">Total deaths</th>
+        <th onclick="sortTable(3)">Total confirmed</th>
+        <th onclick="sortTable(4)">Select Countries</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for data in covid_data %}
+        <tr>
+            <td>{{ data.Country }}</td>
+            <td class="hide-on-small">{{ data.ISO3166_CountryCode }}</td>
+            <td class="hide-on-small">{{ data.max_deaths }}</td>
+            <td>{{ data.max_confirmed }}</td>
+            <td style="text-align: center;">
+                <div class="d-flex justify-content-center">
+                    <div class="form-check">
+                        <input class="form-check-input"
+                               type="checkbox"
+                               name="selected_countries"
+                               value="{{ data.Country }}"
+                               id="flexCheck{{ forloop.counter }}"
+                               onchange="toggleRowBackground(this)">
+                    </div>
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+
+<script src="{% static 'scrips/javascript/toggleRowBackground.js' %}"></script>

@@ -1,0 +1,17 @@
+{% extends 'sharedTemplates/base.html' %}
+{% block title %}{{ data_county.name }}{% endblock %}
+{% load static %}
+{% block body %}
+
+    <div class="container">
+        {% include 'tables/articles_table.html' %}
+    </div>
+    <div class="d-flex justify-content-center">
+        <button id="fetch-more-btn" class="btn btn-primary">Fetch More Articles</button>
+    </div>
+
+    <script src="{% static 'scrips/javascript/fetchArticles.js' %}"></script>
+    <script src="{% static 'scrips/javascript/showAbstract.js' %}"></script>
+    <link rel="stylesheet" href="{% static '/style/style_website.css' %}">
+
+{% endblock %}
